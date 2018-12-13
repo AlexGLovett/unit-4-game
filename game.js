@@ -17,6 +17,7 @@
 //Function
     function removeVideo(){
         $("#introVideo").remove();
+        $("#skipIntro").remove();
     }
     $("#startButton").click(function(){
         console.log("clicked");
@@ -24,7 +25,7 @@
             id: 'introVideo',
             src: 'assets/videos/instructions.mp4',
             type: 'video/mp4',
-            controls: true
+            controls: false
         });
         video.appendTo($('#mainContent'));
         $("#introVideo").css({
@@ -57,7 +58,7 @@
             "z-index":"1"
         })
 
-        setTimeout(removeVideo,1000*150);
+        setTimeout(removeVideo,1000*61);
 
         $("#skipIntro").on("click", function(){
             console.log("skipped");
