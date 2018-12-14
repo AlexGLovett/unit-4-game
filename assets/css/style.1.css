@@ -79,7 +79,13 @@
       justify-content: center;
   }
   #mainContent{
-    z-index: 10000000;
+    z-index: 1100;
+  }
+  #startButton{
+      z-index: 1001;
+      position: absolute;
+      top: 470px;
+      left: 500px;
   }
 
   .inner-contact{
