@@ -78,10 +78,10 @@
       align-content: center;
       justify-content: center;
   }
-  #introVideo{
-      height: max-content;
-      width: max-content;
+  #mainContent{
+    z-index: 10000000;
   }
+
   .inner-contact{
       flex: 1;
       max-width: 960px;
