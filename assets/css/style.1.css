@@ -1,3 +1,4 @@
+@import url(http://allfont.net/allfont.css?fonts=star-jedi);
 * {
     text-align: justify;
     font: #777777;
@@ -81,13 +82,33 @@
   #mainContent{
     z-index: 1100;
   }
+  #startTitle{
+    z-index: 1001;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    font-family: 'Star Jedi', arial;
+    font-size: 64px;
+    color: yellow;
+    border: 3px solid yellow;
+    border-radius: 4px;
+    padding: 0 20px 20px 35px;
+  }
   #startButton{
       z-index: 1001;
       position: absolute;
-      top: 470px;
-      left: 500px;
+      top: 200px;
+      left: 280px;
+      font-family: 'Star Jedi', arial;
+      font-size: 48px;
+      background-color: transparent;
+      color: yellow;
+      border: none;
+      display: none;
   }
-
+  #startButton:hover{
+      content:'Wars';
+  }
   .inner-contact{
       flex: 1;
       max-width: 960px;
