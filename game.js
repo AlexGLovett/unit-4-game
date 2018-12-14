@@ -55,25 +55,24 @@
         var skipButton = $('<input />', {
             id: 'skipIntro',
             type: 'button',
-            value: 'skip'
+            value: 'skip',
         });
 
         skipButton.appendTo($('body'));
-
+        
         $("#skipIntro").css({
             "background-color":"transparent",
             "color":"yellow",
             "border":"3px solid yellow",
             "text-align":"center",
-            "z-index":"1"
-        })
+            "z-index":"2000"
+        });
 
         //Set timeout to close instruction video
         setTimeout(removeVideo,1000*61);
 
         //Create skip button press functionality
         $("#skipIntro").on("click", function(){
-            console.log("skipped");
             removeVideo();
             this.remove();
         });
