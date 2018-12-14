@@ -19,15 +19,19 @@
         $("#introVideo").remove();
         $("#skipIntro").remove();
     }
+
     $("#startButton").click(function(){
-        console.log("clicked");
+        //Create video tag
         var video = $('<video />', {
             id: 'introVideo',
             src: 'assets/videos/instructions.mp4',
             type: 'video/mp4',
             controls: false
         });
+        //Add video tag to relevant container
         video.appendTo($('#mainContent'));
+
+        //Adjust video to be full screen
         $("#introVideo").css({
             "min-width":"100%",
             "min-height":"100%",
@@ -35,6 +39,7 @@
             "height":"auto",
             "top":"0",
             "bottom":"30"});
+
         $("#mainContent").css({
             "position":"absolute",
             "top":"0",
@@ -42,14 +47,19 @@
             "width":"100%",
             "height":"100%",
             "overflow":"hidden"});
+        //Remove start button
         $("#startButton").remove();
+        //Play Video
         $("#introVideo").get(0).play();
+        //Add skip button to reduce annoyance
         var skipButton = $('<input />', {
             id: 'skipIntro',
             type: 'button',
             value: 'skip'
         });
+
         skipButton.appendTo($('body'));
+
         $("#skipIntro").css({
             "background-color":"transparent",
             "color":"yellow",
@@ -58,8 +68,10 @@
             "z-index":"1"
         })
 
+        //Set timeout to close instruction video
         setTimeout(removeVideo,1000*61);
 
+        //Create skip button press functionality
         $("#skipIntro").on("click", function(){
             console.log("skipped");
             removeVideo();
