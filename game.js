@@ -8,55 +8,55 @@
 //Objects
 
 var jediAnakin = {
-    name = "Anakin Skywalker",
-    health = 125,
-    attack = 17,
-    counterAttack = 20,
-    avater = "assets/imgs/characters/anakin/attack.JPG",
-    tagLine = "I hate sand..." 
+    name: "Anakin Skywalker",
+    health: 125,
+    attack : 17,
+    counterAttack: 20,
+    avatar: "assets/imgs/characters/anakin/attack.JPG",
+    tagLine: "I hate sand..." 
     };
 
 var obiWan = {
-    name = "Obi-Wan Kenobi",
-    health = 175,
-    attack = 15,
-    counterAttack = 26,
-    avater = "assets/imgs/characters/anakin/attack.JPG",
-    tagLine = "If you strike me down now, I will become more powerful than you can know."
+    name : "Obi-Wan Kenobi",
+    health : 175,
+    attack : 15,
+    counterAttack : 26,
+    avatar : "assets/imgs/characters/anakin/attack.JPG",
+    tagLine : "If you strike me down now, I will become more powerful than you can know."
     };
 
 var yoda = {
-    name = "Master Skywalker",
-    health = 200,
-    attack = 10,
-    counterAttack = 40,
-    avater = "assets/imgs/characters/anakin/attack.JPG",
-    tagLine = "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering." 
+    name : "Master Skywalker",
+    health : 200,
+    attack : 10,
+    counterAttack : 40,
+    avatar : "assets/imgs/characters/anakin/attack.JPG",
+    tagLine : "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering." 
     };
 
 var palpatine = {
-    name = "Sheev Palpatine",
-    health = 220,
-    attack = 20,
-    counterAttack = 10,
-    avater = "assets/imgs/characters/anakin/attack.JPG",
-    tagLine = "Did you ever hear the tragedy of Darth Plagueis the Wise?"
+    name:  "Sheev Palpatine",
+    health : 220,
+    attack : 20,
+    counterAttack : 10,
+    avatar : "assets/imgs/characters/anakin/attack.JPG",
+    tagLine : "Did you ever hear the tragedy of Darth Plagueis the Wise?"
     };
 
 var maceWindu = {
-    name = "Mace Windu",
-    health = 80,
-    attack = 50,
-    counterAttack = 20,
-    avater ="assets/imgs/characters/anakin/attack.JPG"
+    name : "Mace Windu",
+    health : 80,
+    attack : 50,
+    counterAttack : 20,
+    avatar : "assets/imgs/characters/anakin/attack.JPG"
     };
 
 var younglings = {
-    name = "Younglings",
-    health = 300,
-    attack = 1,
-    counterAttack = 1,
-    avater ="assets/imgs/characters/anakin/attack.JPG"
+    name : "Younglings",
+    health : 300,
+    attack : 1,
+    counterAttack : 1,
+    avatar : "assets/imgs/characters/anakin/attack.JPG"
     };
 
     //Anakin
