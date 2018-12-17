@@ -21,7 +21,7 @@ var obiWan = {
     health : 175,
     attack : 15,
     counterAttack : 26,
-    avatar : "assets/imgs/characters/anakin/attack.JPG",
+    avatar : "assets/imgs/characters/obiwan/attack.jpg",
     tagLine : "If you strike me down now, I will become more powerful than you can know."
     };
 
@@ -30,7 +30,7 @@ var yoda = {
     health : 200,
     attack : 10,
     counterAttack : 40,
-    avatar : "assets/imgs/characters/anakin/attack.JPG",
+    avatar : "assets/imgs/characters/yoda/attack.jpeg",
     tagLine : "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering." 
     };
 
@@ -39,7 +39,7 @@ var palpatine = {
     health : 220,
     attack : 20,
     counterAttack : 10,
-    avatar : "assets/imgs/characters/anakin/attack.JPG",
+    avatar : "assets/imgs/characters/sheev/attack.png",
     tagLine : "Did you ever hear the tragedy of Darth Plagueis the Wise?"
     };
 
@@ -48,7 +48,7 @@ var maceWindu = {
     health : 80,
     attack : 50,
     counterAttack : 20,
-    avatar : "assets/imgs/characters/anakin/attack.JPG"
+    avatar : "assets/imgs/characters/mace/defense.jpg"
     };
 
 var younglings = {
@@ -56,7 +56,7 @@ var younglings = {
     health : 300,
     attack : 1,
     counterAttack : 1,
-    avatar : "assets/imgs/characters/anakin/attack.JPG"
+    avatar : "assets/imgs/characters/youngling/jedi.png"
     };
 
     //Anakin
@@ -67,8 +67,14 @@ var younglings = {
     //Younglings
 
 //Function
-    function removeVideo(){
+    function removeVideoFast(){
+        characterSelect();
         $("#introVideo").remove();
+        $("#skipIntro").remove();
+    }
+
+    function removeVideoSlow(){
+        $("#introVideo").fadeOut(1000);
         $("#skipIntro").remove();
         characterSelect();
     }
@@ -77,7 +83,7 @@ var younglings = {
         $("#startButton").fadeIn(1000);
     }
 
-    setTimeout(buttonFadeIn, 5000);
+    setTimeout(buttonFadeIn, 1000);
 
     $("#startButton").mouseenter(function(){
         this["value"] = "Wars";
@@ -88,6 +94,7 @@ var younglings = {
     });
 
     $("#startButton").click(function(){
+
         //Create video tag
         var video = $('<video />', {
             id: 'introVideo',
@@ -117,6 +124,7 @@ var younglings = {
         //Remove start button
         $("#startButton").remove();
         //Play Video
+        $("#introVideo").get(0).load();
         $("#introVideo").get(0).play();
         //Add skip button to reduce annoyance
         var skipButton = $('<input />', {
@@ -141,16 +149,35 @@ var younglings = {
         });
 
         //Set timeout to close instruction video
-        setTimeout(removeVideo,1000*61);
+        setTimeout(removeVideoSlow,1000*61);
 
         //Create skip button press functionality
         $("#skipIntro").on("click", function(){
-            removeVideo();
+            removeVideoFast();
         });
     });
 
-    function populateCharacters(){
+    function characterButtonMaker(character,box, btnID){
+        var charButton = $('<input/>').attr({ 
+            type: 'button', 
+            name: btnID,
+            class: "charSelMain"
+        });
+        var bxHeight = $(box).css("height");
+        charButton.css({
+            "height":bxHeight,
+            "width":"250px",
+            "background":"url(" + character.avatar + ")",
+            "background-size":"100%"
+        });
+        $(box).append(charButton);
+    }
 
+    function populateCharacters(){
+        characterButtonMaker(yoda,"#characterBox","yodaButton");
+        characterButtonMaker(jediAnakin,"#characterBox", "anakinButton");
+        characterButtonMaker(obiWan,"#characterBox", "obiButton");
+        characterButtonMaker(palpatine, "#characterBox", "palpatineButton");
     }
 
     function characterSelect(){
@@ -169,6 +196,7 @@ var younglings = {
             "font-size":"48px",
             "position":"absolute",
             "top":"50px",
+            "color":"yellow",
             "left":"100px"
 
         });
@@ -177,29 +205,45 @@ var younglings = {
             id: "characterBox"
         });
 
+        var banner = $("<div>",{
+            id: "charBanner"
+        });
+
         $("#r2Select").append(characterBox);
+        $(".content").append(banner);
 
         $("#characterBox").css({
-            "border":"2px solid black",
             "right":"100px",
-            "bottom":"170px",
+            "bottom":"300px",
             "position":"absolute",
             "z-index":"2000",
-            "height":"600px",
+            "height":"400px",
             "width":"1000px",
             "flex":"1",
 
         });
 
+        banner.css({
+            "height":"200px",
+            "width":"100%",
+            "background-color":"white",
+            "position":"absolute",
+            "bottom":"75px",
+            "z-index":"2005",
+            "opacity":"0.5",
+            "visibility":"hidden"
+        });
+
         populateCharacters();
 
     }
-    
 
-
+    $(".charSelMain").click(function(){
+        
+        $("#charBanner").css("visibility","visible");
+        console.log("hovered");
+    });
     
-    //First Time Start
-    //Character Select
     //Attack
     //Change Attack Strength
     //screen transition
