@@ -13,25 +13,25 @@ var jediAnakin = {
     attack : 17,
     counterAttack: 20,
     avatar: "assets/imgs/characters/anakin/attack.JPG",
-    tagLine: "I hate sand..." 
+    tagLine: '"I dont think the system works..."' 
     };
 
 var obiWan = {
-    name : "Obi-Wan Kenobi",
+    name : "Master Kenobi",
     health : 175,
     attack : 15,
     counterAttack : 26,
     avatar : "assets/imgs/characters/obiwan/attack.jpg",
-    tagLine : "If you strike me down now, I will become more powerful than you can know."
+    tagLine : '"If you strike me down now, I will become more powerful than you can know."'
     };
 
 var yoda = {
-    name : "Master Skywalker",
+    name : "Master Yoda",
     health : 200,
     attack : 10,
     counterAttack : 40,
     avatar : "assets/imgs/characters/yoda/attack.jpeg",
-    tagLine : "Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering." 
+    tagLine : '"Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."'
     };
 
 var palpatine = {
@@ -40,7 +40,7 @@ var palpatine = {
     attack : 20,
     counterAttack : 10,
     avatar : "assets/imgs/characters/sheev/attack.png",
-    tagLine : "Did you ever hear the tragedy of Darth Plagueis the Wise?"
+    tagLine : '"Did you ever hear the tragedy of Darth Plagueis the Wise?"'
     };
 
 var maceWindu = {
@@ -160,7 +160,7 @@ var younglings = {
     function characterButtonMaker(character,box, btnID){
         var charButton = $('<input/>').attr({ 
             type: 'button', 
-            name: btnID,
+            name: character.name,
             class: "charSelMain"
         });
         var bxHeight = $(box).css("height");
@@ -231,19 +231,106 @@ var younglings = {
             "bottom":"75px",
             "z-index":"2005",
             "opacity":"0.5",
-            "visibility":"hidden"
+            "display":"none"
         });
 
         populateCharacters();
 
     }
 
-    $(".charSelMain").click(function(){
+    // $("").click(function(){
         
-        $("#charBanner").css("visibility","visible");
-        console.log("hovered");
+    //     $("#charBanner").css("display","initial");
+    //     console.log("hovered");
+    // });
+
+    $(document).on('mouseover', '.charSelMain', function() {
+        $("#charBanner").fadeIn();
+        statsDisplay(this['name']);
+        console.log(this['name']);
     });
-    
+    $(document).on('mouseleave', '.charSelMain', function() {
+        $("#charBanner").css({"display":"none"});
+        $("#charBanner").empty();
+    });
+
+    $(document).on('click', '.charSelMain', function() {
+        var gifdiv = $('<div id="gifDiv">');
+        $(".content").append(gifdiv);
+        var gif = '<iframe src="https://giphy.com/embed/3se2U9ZAJr7DW" width="600" height="400" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fun-perfect-star-wars-3se2U9ZAJr7DW"></a></p>';
+        $("#gifDiv").append(gif);
+        setTimeout(clearGif,2000);
+
+        var startFightButton = $('<input/>').attr({
+            type: 'button',
+            id: 'startFightButton',
+            value: 'Start',
+            name: 'Start Fight'
+        });
+        $("#r2Select").append(startFightButton);
+    });
+
+    function clearGif(){
+        $("#gifDiv").empty();
+    }
+    //<iframe src="https://giphy.com/embed/3se2U9ZAJr7DW" width="480" height="230" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fun-perfect-star-wars-3se2U9ZAJr7DW">via GIPHY</a></p>
+
+    function statsDisplay(name){
+        switch (name){
+            case "Master Yoda":
+            var charName = $('<h1>').text(name);
+            var charHealth = $('<h3>').text("Life Force: " + window['yoda'].health);
+            var charAttack = $('<h3>').text("Attack Power: " + window['yoda'].attack);
+            var charCounter = $('<h3>').text("Counter-Attack Power: " + window['yoda'].counterAttack);
+            var charQuote = $('<h4>').text(window['yoda'].tagLine);
+            $("#charBanner").append(charName);
+            $("#charBanner").append(charHealth);
+            $("#charBanner").append(charAttack);
+            $("#charBanner").append(charCounter);
+            $("#charBanner").append(charQuote);
+            break;
+
+            case "Master Kenobi":
+            var charName = $('<h1>').text(name);
+            var charHealth = $('<h3>').text("Life Force: " + window['obiWan'].health);
+            var charAttack = $('<h3>').text("Attack Power: " + window['obiWan'].attack);
+            var charCounter = $('<h3>').text("Counter-Attack Power: " + window['obiWan'].counterAttack);
+            var charQuote = $('<h3>').text(window['obiWan'].tagLine);
+            $("#charBanner").append(charName);
+            $("#charBanner").append(charHealth);
+            $("#charBanner").append(charAttack);
+            $("#charBanner").append(charCounter);
+            $("#charBanner").append(charQuote);
+            break;
+
+            case "Sheev Palpatine":
+            var charName = $('<h1>').text(name);
+            var charHealth = $('<h3>').text("Life Force: " + window['palpatine'].health);
+            var charAttack = $('<h3>').text("Attack Power: " + window['palpatine'].attack);
+            var charCounter = $('<h3>').text("Counter-Attack Power: " + window['palpatine'].counterAttack);
+            var charQuote = $('<h4>').text(window['palpatine'].tagLine);
+            $("#charBanner").append(charName);
+            $("#charBanner").append(charHealth);
+            $("#charBanner").append(charAttack);
+            $("#charBanner").append(charCounter);
+            $("#charBanner").append(charQuote);
+            break;
+
+            case "Anakin Skywalker":
+            var charName = $('<h1>').text(name);
+            var charHealth = $('<h3>').text("Life Force: " + window['jediAnakin'].health);
+            var charAttack = $('<h3>').text("Attack Power: " + window['jediAnakin'].attack);
+            var charCounter = $('<h3>').text("Counter-Attack Power: " + window['jediAnakin'].counterAttack);
+            var charQuote = $('<h4>').text(window['jediAnakin'].tagLine);
+            $("#charBanner").append(charName);
+            $("#charBanner").append(charHealth);
+            $("#charBanner").append(charAttack);
+            $("#charBanner").append(charCounter);
+            $("#charBanner").append(charQuote);
+            break;
+        }
+    }
+
     //Attack
     //Change Attack Strength
     //screen transition
