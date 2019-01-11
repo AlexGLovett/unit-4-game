@@ -10,6 +10,7 @@ var defender = {};
 var jediAnakin = {
     name: "Anakin Skywalker",
     health: 125,
+    attackIncrement : 17,
     attack : 17,
     counterAttack: 20,
     avatar: "assets/imgs/characters/anakin/attack.JPG",
@@ -20,6 +21,7 @@ var obiWan = {
     name : "Master Kenobi",
     health : 175,
     attack : 15,
+    attackIncrement : 15,
     counterAttack : 26,
     avatar : "assets/imgs/characters/obiwan/attack.jpg",
     tagLine : '"If you strike me down now, I will become more powerful than you can know."'
@@ -29,6 +31,7 @@ var yoda = {
     name : "Master Yoda",
     health : 200,
     attack : 10,
+    attackIncrement : 10,
     counterAttack : 40,
     avatar : "assets/imgs/characters/yoda/attack.jpeg",
     tagLine : '"Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."'
@@ -38,6 +41,7 @@ var palpatine = {
     name:  "Sheev Palpatine",
     health : 220,
     attack : 20,
+    attackIncrement : 20,
     counterAttack : 10,
     avatar : "assets/imgs/characters/sheev/attack.png",
     tagLine : '"Did you ever hear the tragedy of Darth Plagueis the Wise?"'
@@ -47,6 +51,7 @@ var maceWindu = {
     name : "Mace Windu",
     health : 80,
     attack : 50,
+    attackIncrement : 50,
     counterAttack : 20,
     avatar : "assets/imgs/characters/mace/defense.jpg"
     };
@@ -58,7 +63,8 @@ var younglings = {
     counterAttack : 1,
     avatar : "assets/imgs/characters/youngling/jedi.png"
     };
-
+var choices = [];
+console.log(choices);
     //Anakin
     //Obi-Wan
     //Yoda
@@ -151,7 +157,7 @@ var younglings = {
         });
 
         //Set timeout to close instruction video
-        setTimeout(removeVideoSlow,1000*61);
+        setTimeout(removeVideoSlow,1000);
         
 
         //Create skip button press functionality
@@ -279,18 +285,25 @@ var younglings = {
         $(this).css("border","1px solid red");
         var gif = '<iframe src="https://giphy.com/embed/3se2U9ZAJr7DW" width="600" height="400" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fun-perfect-star-wars-3se2U9ZAJr7DW"></a></p>';
         $("#gifDiv").append(gif);
+        choices = [];
+        choices.push(jediAnakin, yoda, palpatine, obiWan);
+        console.log(choices);
         switch (this['name']){
             case(jediAnakin.name):
-                Object.assign(character,jediAnakin);  
+                Object.assign(character,jediAnakin);
+                choices.splice(choices.indexOf(jediAnakin),1);
                 break;              
             case(yoda.name):
                 Object.assign(character,yoda);
+                choices.splice(choices.indexOf(yoda),1);
                 break;
             case(palpatine.name):
                 Object.assign(character,palpatine);
+                choices.splice(choices.indexOf(palpatine),1);
                 break;
             case(obiWan.name):
                 Object.assign(character,obiWan);
+                choices.splice(choices.indexOf(obiWan),1);
                 break;
         }
         var startFightButton = $('<input/>').attr({
@@ -381,22 +394,11 @@ var younglings = {
         var charInfo = $("<div>",{
             id: "charInfo"
         });
-        var enemy1Info = $("<div>",{
-            id: "enemy1Info"
-        });
-        var enemy2Info = $("<div>",{
-            id: "enemy2Info"
-        });
-        var enemy3Info = $("<div>",{
-            id: "enemy3Info"
-        });
+       
         
 
         $(".content").append(characterBox);
         $(".content").append(charInfo);
-        $(".content").append(enemy1Info);
-        $(".content").append(enemy2Info);
-        $(".content").append(enemy3Info);
 
         $('<p>', {
             text: character.name,
@@ -440,6 +442,163 @@ var younglings = {
             "width":"250px",
             "flex":"1",
         });
+        characterButtonMaker(character, "#userBox", "userChar");
+        ChooseOpponent();
+        $(document).on("click",".defenderBtns",function(){
+            var choice = this;
+            $("#enemyBox").empty();
+            $("#enemy1Info").empty();
+            $("#enemy2Info").empty();
+            $("#enemy3Info").empty();
+            $("#enemySelectInstructions").remove();
+            $(".content").append(choice);
+            $(choice).css({
+                "right":"20%",
+                "bottom":"33%",
+                "position":"absolute",
+                "z-index":"1",
+                "height":"400px"
+            });
+            switch (choice.name){
+                case(jediAnakin.name):
+                    popEnemyStats("enemy1Info",jediAnakin);
+                    Object.assign(defender,jediAnakin);
+                    break;
+                case(yoda.name):
+                    popEnemyStats("enemy1Info",yoda);
+                    Object.assign(defender,yoda);
+                    break;
+                case(obiWan.name):
+                    popEnemyStats("enemy1Info",obiWan);
+                    Object.assign(defender,obiWan);
+                    break;
+                case(palpatine.name):
+                    popEnemyStats("enemy1Info",palpatine);
+                    Object.assign(defender,palpatine);
+                    break;
+            }
+            var attackBtn = $('<input/>').attr({
+                type: 'button',
+                class: 'attackBtn',
+                value: 'Attack',
+                name: 'Attack Button'
+            });
+            var escapeBtn = $('<input/>').attr({
+                type: 'button',
+                class: 'escapeBtn',
+                value: 'Escape',
+                name: 'Escape Button'
+            });
+            $(".content").append(attackBtn);
+            $(".content").append(escapeBtn);
+            $(".attackBtn").css({
+                "font-family":'Star Jedi',
+                "color":"yellow",
+                "background":"transparent",
+                "border":"2px yellow solid",
+                "right":"50%",
+                "bottom":"55%",
+                "position":"absolute",
+                "z-index":"1",
+                "height":"100px",
+                "width":"auto",
+                "font-size":"24px"
+            });
+            $(".escapeBtn").css({
+                "font-family":'Star Jedi',
+                "color":"yellow",
+                "background":"transparent",
+                "border":"2px yellow solid",
+                "right":"50%",
+                "bottom":"40%",
+                "position":"absolute",
+                "z-index":"1",
+                "height":"100px",
+                "width":"auto",
+                "font-size":"24px"
+            });
+        });
+
+        $(document).on("click",".attackBtn", function(){
+            defender.health -= character.attack;
+            character.attack += character.attackIncrement;
+            if (defender.health <= 0){
+                $("#chrAttack").text("Attack Power: " + character.attack);
+                defender.health = 0;
+                $("#eneHealth").text("Life Force: " + defender.health);
+                switch (defender.name){
+                    case ("Anakin Skywalker"):
+                    choices.splice(choices.indexOf(jediAnakin),1);
+                    break;
+                    case ("Master Yoda"):
+                    choices.splice(choices.indexOf(yoda),1);
+                    break;
+                    case ("Master Kenobi"):
+                    choices.splice(choices.indexOf(obiWan),1);
+                    break;
+                    case ("Sheev Palpatine"):
+                    choices.splice(choices.indexOf(palpatine),1);
+                    break;
+                }
+                if (choices.length == 0){
+                    Win();
+                }
+                else{
+                    ChooseOpponent(); 
+                }  
+            }
+            else{
+                character.health -= defender.counterAttack;
+                if (character.health <= 0){
+                    Lose();
+                }
+                $("#chrAttack").text("Attack Power: " + character.attack);
+                $("#chrHealth").text("Life Force: " + character.health);
+                $("#eneHealth").text("Life Force: " + defender.health);
+            }
+        });
+
+        $(document).on("click",".escapeBtn", function(){
+            ChooseOpponent();
+        });
+    }
+
+    function ChooseOpponent(){
+        $(".attackBtn").remove();
+        $(".escapeBtn").remove();
+        $(".defenderBtns").remove();
+        $("#enemy1Info").remove();
+        $("#enemyBox").remove();
+        if (choices.length == 3){
+            var enemy1Info = $("<div>",{
+                id: "enemy1Info"
+            });
+            var enemy2Info = $("<div>",{
+                id: "enemy2Info"
+            });
+            var enemy3Info = $("<div>",{
+                id: "enemy3Info"
+            });
+            $(".content").append(enemy1Info);
+            $(".content").append(enemy2Info);
+            $(".content").append(enemy3Info);
+        }
+        else if (choices.length == 2){
+            var enemy1Info = $("<div>",{
+                id: "enemy1Info"
+            });
+            var enemy2Info = $("<div>",{
+                id: "enemy2Info"
+            });
+            $(".content").append(enemy1Info);
+            $(".content").append(enemy2Info);
+        }
+        else {
+            var enemy1Info = $("<div>",{
+                id: "enemy1Info"
+            });
+            $(".content").append(enemy1Info);
+        }
         $("#enemy1Info").css({
             "right":"20%",
             "bottom":"10%",
@@ -467,8 +626,6 @@ var younglings = {
             "width":"250px",
             "flex":"1",
         });
-        characterButtonMaker(character, "#userBox", "userChar");
-
         var enemyBox = $("<div>",{
             id: "enemyBox"
         });
@@ -482,43 +639,15 @@ var younglings = {
             "z-index":"1",
             "height":"400px",
             "width":"750px",
-            "display":"flex"
+            "display":"flex",
+            "justify-content":"flex-end"
         });
-
-        switch (character.name){
-            case(jediAnakin.name):
-                characterButtonMaker(yoda, "#enemyBox", "yodaEnemy");
-                popEnemyStats("enemy3Info",yoda);
-                characterButtonMaker(obiWan, "#enemyBox", "obiWanEnemy");
-                popEnemyStats("enemy2Info",obiWan);
-                characterButtonMaker(palpatine, "#enemyBox", "palpatineEnemy");
-                popEnemyStats("enemy1Info",palpatine);
-                break;
-            case(yoda.name):
-                characterButtonMaker(jediAnakin, "#enemyBox", "yodaEnemy");
-                popEnemyStats("enemy3Info",jediAnakin);
-                characterButtonMaker(obiWan, "#enemyBox", "obiWanEnemy");
-                popEnemyStats("enemy2Info",obiWan);
-                characterButtonMaker(palpatine, "#enemyBox", "palpatineEnemy");
-                popEnemyStats("enemy1Info",palpatine);
-                break;
-            case(obiWan.name):
-                characterButtonMaker(yoda, "#enemyBox", "yodaEnemy");
-                popEnemyStats("enemy3Info",yoda);
-                characterButtonMaker(jediAnakin, "#enemyBox", "obiWanEnemy");
-                popEnemyStats("enemy2Info",jediAnakin);
-                characterButtonMaker(palpatine, "#enemyBox", "palpatineEnemy");
-                popEnemyStats("enemy1Info",palpatine);
-                break;
-            case(palpatine.name):
-                characterButtonMaker(yoda, "#enemyBox", "yodaEnemy");
-                popEnemyStats("enemy3Info",yoda);
-                characterButtonMaker(obiWan, "#enemyBox", "obiWanEnemy");
-                popEnemyStats("enemy2Info",obiWan);
-                characterButtonMaker(jediAnakin, "#enemyBox", "palpatineEnemy");
-                popEnemyStats("enemy1Info",jediAnakin);
-                break;
-        }
+        var i = choices.length;
+        choices.forEach(function(c){
+            characterButtonMaker(c, "#enemyBox", "Enemy");
+            popEnemyStats("enemy" + i + "Info",c);
+            i--;
+        });
         $("p").css({
             "text-align":"center",
             "font-family":'Star Jedi',
@@ -533,78 +662,8 @@ var younglings = {
             "font-family":'Star Jedi',
             "color":"yellow"
         });
-
-        $(document).on("click",".defenderBtns",function(){
-            var choice = this;
-            $("#enemyBox").empty();
-            $("#enemy1Info").empty();
-            $("#enemy2Info").empty();
-            $("#enemy3Info").empty();
-            $("#enemySelectInstructions").remove();
-            $(".content").append(choice);
-            $(choice).css({
-                "right":"20%",
-                "bottom":"33%",
-                "position":"absolute",
-                "z-index":"1",
-                "height":"400px"
-            });
-            switch (choice.name){
-                case(jediAnakin.name):
-                    popEnemyStats("enemy1Info",jediAnakin);
-                    break;
-                case(yoda.name):
-                    popEnemyStats("enemy1Info",yoda);
-                    break;
-                case(obiWan.name):
-                    popEnemyStats("enemy1Info",obiWan);
-                    break;
-                case(palpatine.name):
-                    popEnemyStats("enemy1Info",palpatine);
-                    break;
-            }
-            var attackBtn = $('<input/>').attr({
-                type: 'button',
-                id: 'attackBtn',
-                value: 'Attack',
-                name: 'Attack Button'
-            });
-            var escapeBtn = $('<input/>').attr({
-                type: 'button',
-                id: 'escapeBtn',
-                value: 'Escape',
-                name: 'Escape Button'
-            });
-            $(".content").append(attackBtn);
-            $(".content").append(escapeBtn);
-            $("#attackBtn").css({
-                "font-family":'Star Jedi',
-                "color":"yellow",
-                "background":"transparent",
-                "border":"2px yellow solid",
-                "right":"50%",
-                "bottom":"55%",
-                "position":"absolute",
-                "z-index":"1",
-                "height":"100px",
-                "width":"auto",
-                "font-size":"24px"
-            });
-            $("#escapeBtn").css({
-                "font-family":'Star Jedi',
-                "color":"yellow",
-                "background":"transparent",
-                "border":"2px yellow solid",
-                "right":"50%",
-                "bottom":"40%",
-                "position":"absolute",
-                "z-index":"1",
-                "height":"100px",
-                "width":"auto",
-                "font-size":"24px"
-            });
-        });
     }
+
     function popEnemyStats(box, enemy){
         $('<p>', {
             text: enemy.name,
@@ -627,6 +686,72 @@ var younglings = {
             "font-family":'Star Jedi',
             "color":"yellow",
             "font-size":"20px"
+        });
+    }
+
+    function Win(){
+        $(".content").empty();
+        $("<h1>").attr({
+            id: "winText"
+        }).text("You Won!").appendTo(".content");
+        $("#winText").css({
+            "right":"43%",
+            "top":"40%",
+            "font-family":'Star Jedi',
+            "color":"yellow",
+            "position":"absolute"
+        });
+        var playAgain = $('<input/>').attr({
+            type: 'button',
+            id: 'playAgain',
+            value: 'Play Again',
+            name: 'Play Again Button'
+        });
+        $(".content").append(playAgain);
+        $("#playAgain").css({
+            "background":"transparent",
+            "border":"2px solid yellow",
+            "font-family":"Star Jedi",
+            "top":"50%",
+            "right":"45%",
+            "position":"absolute",
+            "color":"yellow"
+        });
+        $(document).on("click","#playAgain",function(){
+            characterSelect();
+        });
+    }
+
+    function Lose(){
+        $(".content").empty();
+        $("<h1>").attr({
+            id: "lossText"
+        }).text("You Lost...").appendTo(".content");
+        $("#lossText").css({
+            "right":"43%",
+            "top":"40%",
+            "font-family":'Star Jedi',
+            "color":"yellow",
+            "position":"absolute"
+        });
+        var playAgain = $('<input/>').attr({
+            type: 'button',
+            id: 'playAgain',
+            value: 'Play Again',
+            name: 'Play Again Button'
+        });
+        $(".content").append(playAgain);
+        $("#playAgain").css({
+            "background":"transparent",
+            "border":"2px solid yellow",
+            "font-family":"Star Jedi",
+            "top":"50%",
+            "right":"47%",
+            "position":"absolute",
+            "color":"yellow"
+        });
+        $(document).on("click","#playAgain",function(){
+            characterSelect();
         });
     }
     //Attack
