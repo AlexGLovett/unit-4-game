@@ -1,11 +1,6 @@
 var gameCounter = 0;
 var character = {};
 var defender = {};
-    //Gamecounter
-    //character selected
-    //defender selected
-
-//Objects
 
 var jediAnakin = {
     name: "Anakin Skywalker",
@@ -47,32 +42,9 @@ var palpatine = {
     tagLine : '"Did you ever hear the tragedy of Darth Plagueis the Wise?"'
     };
 
-var maceWindu = {
-    name : "Mace Windu",
-    health : 80,
-    attack : 50,
-    attackIncrement : 50,
-    counterAttack : 20,
-    avatar : "assets/imgs/characters/mace/defense.jpg"
-    };
-
-var younglings = {
-    name : "Younglings",
-    health : 300,
-    attack : 1,
-    counterAttack : 1,
-    avatar : "assets/imgs/characters/youngling/jedi.png"
-    };
 var choices = [];
-console.log(choices);
-    //Anakin
-    //Obi-Wan
-    //Yoda
-    //Palpatine
-    //Mace Windu
-    //Younglings
 
-//Function
+
     function removeVideoFast(){
         characterSelect();
         $("#introVideo").remove();
@@ -265,12 +237,6 @@ console.log(choices);
         $(".content").append(gifdiv);
     }
 
-    // $("").click(function(){
-        
-    //     $("#charBanner").css("display","initial");
-    //     console.log("hovered");
-    // });
-
     $(document).on('mouseover', '.charSelMain', function() {
         $("#charBanner").fadeIn();
         statsDisplay(this['name']);
@@ -287,7 +253,6 @@ console.log(choices);
         $("#gifDiv").append(gif);
         choices = [];
         choices.push(jediAnakin, yoda, palpatine, obiWan);
-        console.log(choices);
         switch (this['name']){
             case(jediAnakin.name):
                 Object.assign(character,jediAnakin);
@@ -328,7 +293,6 @@ console.log(choices);
     function clearGif(){
         $("#gifDiv").empty();
     }
-    //<iframe src="https://giphy.com/embed/3se2U9ZAJr7DW" width="480" height="230" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/fun-perfect-star-wars-3se2U9ZAJr7DW">via GIPHY</a></p>
 
     function statsDisplay(name){
         switch (name){
@@ -395,8 +359,6 @@ console.log(choices);
             id: "charInfo"
         });
        
-        
-
         $(".content").append(characterBox);
         $(".content").append(charInfo);
 
@@ -417,7 +379,6 @@ console.log(choices);
             id: "chrCounterAttack"
         }).appendTo(charInfo);
         
-
         $("#userBox").css({
             "left":"20%",
             "bottom":"33%",
@@ -541,7 +502,10 @@ console.log(choices);
                     break;
                 }
                 if (choices.length == 0){
+                    character = {};
+                    defender = {};
                     Win();
+                    
                 }
                 else{
                     ChooseOpponent(); 
@@ -550,6 +514,8 @@ console.log(choices);
             else{
                 character.health -= defender.counterAttack;
                 if (character.health <= 0){
+                    character = {};
+                    defender = {};
                     Lose();
                 }
                 $("#chrAttack").text("Attack Power: " + character.attack);
@@ -564,10 +530,13 @@ console.log(choices);
     }
 
     function ChooseOpponent(){
+
         $(".attackBtn").remove();
         $(".escapeBtn").remove();
         $(".defenderBtns").remove();
         $("#enemy1Info").remove();
+        $("#enemy2Info").remove();
+        $("#enemy3Info").remove();
         $("#enemyBox").remove();
         if (choices.length == 3){
             var enemy1Info = $("<div>",{
@@ -662,6 +631,7 @@ console.log(choices);
             "font-family":'Star Jedi',
             "color":"yellow"
         });
+        defender = {};
     }
 
     function popEnemyStats(box, enemy){
@@ -718,6 +688,7 @@ console.log(choices);
             "color":"yellow"
         });
         $(document).on("click","#playAgain",function(){
+            resetCharacters();
             characterSelect();
         });
     }
@@ -751,12 +722,52 @@ console.log(choices);
             "color":"yellow"
         });
         $(document).on("click","#playAgain",function(){
+            resetCharacters();
             characterSelect();
         });
     }
-    //Attack
-    //Change Attack Strength
-    //screen transition
-    //check for win/loss
-    //restart
-    //quit
+
+    function resetCharacters(){
+        jediAnakin = {
+            name: "Anakin Skywalker",
+            health: 125,
+            attackIncrement : 17,
+            attack : 17,
+            counterAttack: 20,
+            avatar: "assets/imgs/characters/anakin/attack.JPG",
+            tagLine: '"I dont think the system works..."' 
+            };
+
+        obiWan = {
+            name : "Master Kenobi",
+            health : 175,
+            attack : 15,
+            attackIncrement : 15,
+            counterAttack : 26,
+            avatar : "assets/imgs/characters/obiwan/attack.jpg",
+            tagLine : '"If you strike me down now, I will become more powerful than you can know."'
+            };
+
+        yoda = {
+            name : "Master Yoda",
+            health : 200,
+            attack : 10,
+            attackIncrement : 10,
+            counterAttack : 40,
+            avatar : "assets/imgs/characters/yoda/attack.jpeg",
+            tagLine : '"Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."'
+            };
+
+        palpatine = {
+            name:  "Sheev Palpatine",
+            health : 220,
+            attack : 20,
+            attackIncrement : 20,
+            counterAttack : 10,
+            avatar : "assets/imgs/characters/sheev/attack.png",
+            tagLine : '"Did you ever hear the tragedy of Darth Plagueis the Wise?"'
+            };
+        choices = [];
+        character = {};
+        defender = {};
+    }
