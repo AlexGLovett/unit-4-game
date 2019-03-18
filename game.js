@@ -5,8 +5,8 @@ var defender = {};
 var jediAnakin = {
     name: "Anakin Skywalker",
     health: 125,
-    attackIncrement : 17,
-    attack : 17,
+    attackIncrement : 25,
+    attack : 25,
     counterAttack: 20,
     avatar: "assets/imgs/characters/anakin/attack.JPG",
     tagLine: '"I dont think the system works..."' 
@@ -15,7 +15,7 @@ var jediAnakin = {
 var obiWan = {
     name : "Master Kenobi",
     health : 175,
-    attack : 15,
+    attack : 5,
     attackIncrement : 15,
     counterAttack : 26,
     avatar : "assets/imgs/characters/obiwan/attack.jpg",
@@ -26,7 +26,7 @@ var yoda = {
     name : "Master Yoda",
     health : 200,
     attack : 10,
-    attackIncrement : 10,
+    attackIncrement : 15,
     counterAttack : 40,
     avatar : "assets/imgs/characters/yoda/attack.jpeg",
     tagLine : '"Fear is the path to the dark side. Fear leads to anger. Anger leads to hate. Hate leads to suffering."'
@@ -34,10 +34,10 @@ var yoda = {
 
 var palpatine = {
     name:  "Sheev Palpatine",
-    health : 220,
+    health : 250,
     attack : 20,
-    attackIncrement : 20,
-    counterAttack : 10,
+    attackIncrement : 5,
+    counterAttack : 15,
     avatar : "assets/imgs/characters/sheev/attack.png",
     tagLine : '"Did you ever hear the tragedy of Darth Plagueis the Wise?"'
     };
@@ -74,6 +74,12 @@ var choices = [];
     });
 
     $("#startButton").click(function(){
+        $("#startButton").remove();
+        $("#instructionsButton").remove();
+        characterSelect();
+    });
+
+    $("#instructionsButton").click(function(){
 
         //Create video tag
         var video = $('<video />', {
@@ -103,6 +109,7 @@ var choices = [];
             "overflow":"hidden"});
         //Remove start button
         $("#startButton").remove();
+        $("#instructionsButton").remove();
         //Play Video
         $("#introVideo").get(0).load();
         $("#introVideo").get(0).play();
@@ -129,7 +136,7 @@ var choices = [];
         });
 
         //Set timeout to close instruction video
-        setTimeout(removeVideoSlow,1000);
+        setTimeout(removeVideoSlow,61000);
         
 
         //Create skip button press functionality
@@ -687,10 +694,7 @@ var choices = [];
             "position":"absolute",
             "color":"yellow"
         });
-        $(document).on("click","#playAgain",function(){
-            resetCharacters();
-            characterSelect();
-        });
+
     }
 
     function Lose(){
@@ -721,11 +725,12 @@ var choices = [];
             "position":"absolute",
             "color":"yellow"
         });
-        $(document).on("click","#playAgain",function(){
-            resetCharacters();
-            characterSelect();
-        });
+
     }
+
+    $(document).on("click","#playAgain",function(){
+       location.reload();
+    });
 
     function resetCharacters(){
         jediAnakin = {

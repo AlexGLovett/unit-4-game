@@ -104,8 +104,18 @@
       background-color: transparent;
       color: yellow;
       border: none;
-      display: none;
   }
+  #instructionsButton{
+    z-index: 1001;
+    position: absolute;
+    top: 260px;
+    left: 240px;
+    font-family: 'Star Jedi', arial;
+    font-size: 24px;
+    background-color: transparent;
+    color: yellow;
+    border: none;
+}
   #startButton:hover{
       content:'Wars';
   }
